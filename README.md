@@ -26,26 +26,22 @@ Ou seja, o Nginx é um servidor extremamente versátil que pode atuar tanto serv
 # ⚙️ Instalação
 
 ## 📦 Ubuntu / Debian
-
 ```bash
 sudo apt update
 sudo apt install nginx
 ```
 
 ## 🔎 Verificar status
-
 ```bash
 sudo systemctl status nginx
 ```
 
 ## ▶️ Iniciar serviço
-
 ```bash
 sudo systemctl start nginx
 ```
 
 ## 🔥 Liberar no firewall
-
 ```bash
 sudo ufw allow 'Nginx HTTP'
 ```
@@ -55,7 +51,6 @@ sudo ufw allow 'Nginx HTTP'
 # 🛠️ Gerenciamento do Serviço
 
 Via systemctl:
-
 ```bash
 sudo systemctl start nginx
 sudo systemctl reload nginx
@@ -63,7 +58,6 @@ sudo systemctl stop nginx
 ```
 
 Via comando nginx:
-
 ```bash
 nginx -s stop     # fast shutdown
 nginx -s quit     # graceful shutdown
@@ -76,13 +70,11 @@ nginx -s reopen   # reopen logs
 # 📂 Arquivos de Configuração
 
 Arquivo principal:
-
 ```
 nginx.conf
 ```
 
 Possíveis caminhos:
-
 - `/etc/nginx/nginx.conf`
 - `/usr/local/nginx/conf/nginx.conf`
 - `/usr/local/etc/nginx/nginx.conf`
@@ -92,7 +84,6 @@ Possíveis caminhos:
 # 📜 Logs
 
 Diretório padrão:
-
 ```
 /var/log/nginx/
 ```
@@ -106,13 +97,12 @@ Arquivos principais:
 # 🧪 Como Testar
 
 ```bash
-cp sysadmin-nginx/nginx.conf /usr/local/nginx/conf/nginx.conf
-sudo nginx -t        # valida configuração
-sudo systemctl reload nginx
+chmod +x ./demo
+echo "Usage: ./demo {start|test|reload|stop} {web|mail|load}"
+./demo start web
 ```
 
 Acesse no navegador:
-
 ```
 http://localhost
 ```

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+ACTION=$1
+TARGET=$2
+CONF="$(pwd)/conf"
+
+display_help(){
+    echo "Usage: ./demo {start|test|reload|stop} {web|mail|load}"
+}
+
+if [[ -z "$ACTION" && -z "$TARGET" ]]; then
+    display_help
+    exit 1
+fi
+
+case "$TARGET" in
+    web)
+        cp -r ./html /tmp
+        CONF="$CONF/web_server.conf"
+        ;;
+    mail)
+        CONF="$CONF/mail_proxy_server.conf"
+        ;;
+    load)
+        CONF="$CONF/load_balancer_server.conf"
+        ;;
+    *)
+        display_help
+        exit 1
+        ;;
+esac
+
+if [[ "$ACTION" == "start" ]];then 
+    sudo nginx -c "$CONF"
+
+elif [[ "$ACTION" == "test" ]];then 
+    sudo nginx -t -c "$CONF"
+
+elif [[ "$ACTION" == "reload" ]];then 
+    sudo nginx -s reload -c "$CONF"
+
+elif [[ "$ACTION" == "stop" ]];then 
+    sudo nginx -s stop -c "$CONF"
+else
+    display_help
+fi
