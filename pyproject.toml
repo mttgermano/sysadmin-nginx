@@ -1,0 +1,10 @@
+[project]
+name = "sysadmin-nginx"
+version = "0.1.0"
+description = "Repositorio demo para sysadmin"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiosmtpd>=1.4.6",
+    "flask>=3.1.3",
+]
