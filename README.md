@@ -11,8 +11,6 @@
 - ⚖️ Load Balancer  
 - 📧 Mail Proxy Server  
 
----
-
 ## 📖 Sobre o Nginx
 
 Segundo o site oficial:
@@ -23,7 +21,7 @@ Ou seja, o Nginx é um servidor extremamente versátil que pode atuar tanto serv
 
 ---
 
-# ⚙️ Instalação
+# 1. Instalação Nginx
 
 ## 📦 Ubuntu / Debian
 ```bash
@@ -31,43 +29,9 @@ sudo apt update
 sudo apt install nginx
 ```
 
-## 🔎 Verificar status
-```bash
-sudo systemctl status nginx
-```
-
-## ▶️ Iniciar serviço
-```bash
-sudo systemctl start nginx
-```
-
-## 🔥 Liberar no firewall
-```bash
-sudo ufw allow 'Nginx HTTP'
-```
-
 ---
 
-# 🛠️ Gerenciamento do Serviço
-
-Via systemctl:
-```bash
-sudo systemctl start nginx
-sudo systemctl reload nginx
-sudo systemctl stop nginx
-```
-
-Via comando nginx:
-```bash
-nginx -s stop     # fast shutdown
-nginx -s quit     # graceful shutdown
-nginx -s reload   # reload configuração
-nginx -s reopen   # reopen logs
-```
-
----
-
-# 📂 Arquivos de Configuração
+# 2. Arquivos de Configuração
 
 Arquivo principal:
 ```
@@ -81,7 +45,7 @@ Possíveis caminhos:
 
 ---
 
-# 📜 Logs
+# 3. Logs
 
 Diretório padrão:
 ```
@@ -93,16 +57,44 @@ Arquivos principais:
 - `access.log` → Registra todas as requisições recebidas
 - `error.log` → Registra erros, falhas e diagnósticos
 
+## 📜 Acessando logs
+```bash
+tail -f /var/log/nginx/acess.log
+tail -f /var/log/nginx/error.log
+```
+---
 
 # 🧪 Como Testar
 
+## ⚙️ Instale as dependências
+```bash
+# uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv sync
+
+# swaks (tool for SMTP testing)
+sudo apt install swaks
+```
+
+## ▶️ Execute 
 ```bash
 chmod +x ./demo
 echo "Usage: ./demo {start|test|reload|stop} {web|mail|load}"
-./demo start web
 ```
 
-Acesse no navegador:
+### Testando o Web Server
+```bash
+./demo start web
+# open the broser on: http://localhost:8080
 ```
-http://localhost
+
+### Testando o Mail Server
+```bash
+make auth_server
+
+# em outro terminal
+make mail_server
+
+# mais outro terminal
+make mail
 ```
